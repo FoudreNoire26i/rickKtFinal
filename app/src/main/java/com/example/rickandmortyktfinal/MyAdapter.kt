@@ -11,6 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.graphics.drawable.RoundedBitmapDrawable
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.FragmentTransitionImpl
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyktfinal.dataClass.Character
 import com.example.rickandmortyktfinal.fragment.CharacterDetailsFragment
@@ -35,8 +37,6 @@ class MyAdapter(val listCharacter: ArrayList<Character>) : RecyclerView.Adapter<
 
         val savedCharacter = mPrefs.all
 
-
-
         return mViewHolder
     }
 
@@ -59,8 +59,11 @@ class MyAdapter(val listCharacter: ArrayList<Character>) : RecyclerView.Adapter<
             val frag = CharacterDetailsFragment.newInstance()
             frag.arguments = bundle
             (it.context as MainActivity).supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.fragment_container, frag)
+                .addToBackStack("CharacterDetailsFragment")
                 .commit()
+
         }
 
         holder.itemView.setOnLongClickListener{
@@ -68,9 +71,14 @@ class MyAdapter(val listCharacter: ArrayList<Character>) : RecyclerView.Adapter<
             bundle.putString(SELECTED_CHARACTER_IMAGE, me.image)
             val frag = ZoomedPhotoFragment.newInstance()
             frag.arguments = bundle
-            (it.context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, frag)
-                .commit()
+            val im = it.findViewById<ImageView>(R.id.character_image_view)
+            ViewCompat.getTransitionName(im)?.let { it1 ->
+                (it.context as MainActivity).supportFragmentManager.beginTransaction()
+                        .addSharedElement(im, it1)
+                    .replace(R.id.fragment_container, frag)
+                    .addToBackStack("ZoomedPhotoFragment")
+                    .commit()
+            }
             true
         }
     }

@@ -6,3 +6,4 @@ const val DETAIL_IMAGE_SIZE = 400
 const val PREFERENCE_FILE_KEY = "saves"
 const val SELECTED_CHARACTER = "theOnlyOne"
 const val SELECTED_CHARACTER_IMAGE = "theOnlyImageOne"
+const val VIEW_NAME_HEADER_IMAGE = "toZoom"

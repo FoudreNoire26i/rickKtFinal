@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.rickandmortyktfinal.DETAIL_IMAGE_SIZE
-import com.example.rickandmortyktfinal.ITEM_LIST_SIZE
-import com.example.rickandmortyktfinal.R
-import com.example.rickandmortyktfinal.SELECTED_CHARACTER
+import com.example.rickandmortyktfinal.*
 import com.example.rickandmortyktfinal.dataClass.Character
 import com.squareup.picasso.Picasso
 
@@ -52,6 +49,10 @@ class CharacterDetailsFragment : Fragment() {
         view.findViewById<TextView>(R.id.name_details).text = me?.name ?: "I\'m no name"
         view.findViewById<TextView>(R.id.status_details).text = me?.status ?: "I have no status"
         view.findViewById<TextView>(R.id.species_details).text = me?.species ?: "I have no species"
+
+        view.setOnClickListener{
+            (it.context as MainActivity).supportFragmentManager.popBackStack()
+        }
     }
 
     companion object {

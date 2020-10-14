@@ -7,9 +7,12 @@
     android:layout_gravity="center">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@drawable/character_list_background"
         android:id="@+id/recycler_character_list"
         android:layout_width="match_parent"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideInset"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"/>
+        />
 
 </FrameLayout>
